@@ -141,7 +141,7 @@ header h1 {
 }
 .alerta.error {
     background-color: var(--blanco);
-    /* border-left: 5px solid #b91c1c;  */
+    border-left: 5px solid #b91c1c;
     color: #b91c1c;
 }
 .alerta.success {
@@ -406,4 +406,9 @@ body .modal {
 
 .boton-redondeado{
     border-radius:0.375rem;
+}
+
+.boton-cerrar:hover {
+    cursor: pointer;
+    opacity: 0.8;
 }

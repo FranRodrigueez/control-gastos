@@ -1,6 +1,19 @@
-import React from 'react'
+import {useState, useEffect} from 'react'
 
-const ControlPresupuesto = ({presupuesto}) => {
+const ControlPresupuesto = ({gastos, presupuesto}) => {
+
+    const [disponible, setDisponible] = useState(0)
+    const [gastado, setGastado] = useState(0)
+
+    useEffect (() => {
+        const totalGastado = gastos.reduce( (total, gasto) => gasto.cantidadGastada + total, 0)
+      
+        const totalDisponible = presupuesto - totalGastado
+
+        
+        setGastado(totalGastado)
+        setDisponible(totalDisponible)
+    }, [gastos])
 
     const formatearCantidad = (cantidad) => {
         return cantidad.toLocaleString("es-ES", {
@@ -23,11 +36,11 @@ const ControlPresupuesto = ({presupuesto}) => {
             </p>
 
             <p>
-                <span>Disponible: </span>{formatearCantidad(0)}
+                <span>Disponible: </span>{formatearCantidad(disponible)}
             </p>
 
             <p>
-                <span>Gasto: </span>{formatearCantidad(0)}
+                <span>Gasto: </span>{formatearCantidad(gastado)}
             </p>
 
         </div>

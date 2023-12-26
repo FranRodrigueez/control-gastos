@@ -24,5 +24,4 @@ const Filtros = ({filtro, setFiltro}) => {
     </div>
   )
 }
-
 export default Filtros

@@ -2,7 +2,13 @@ import {useState, useEffect} from 'react'
 import {CircularProgressbar, buildStyles} from 'react-circular-progressbar'
 import "react-circular-progressbar/dist/styles.css"
 
-const ControlPresupuesto = ({gastos, presupuesto}) => {
+const ControlPresupuesto = ({
+    gastos,
+    setGastos, 
+    presupuesto,
+    setPresupuesto,
+    setEsValidoPresupuesto
+}) => {
 
     const [porcentaje, setPorcentaje] = useState(0)
     const [disponible, setDisponible] = useState(0)
@@ -30,6 +36,16 @@ const ControlPresupuesto = ({gastos, presupuesto}) => {
             currency: "EUR"
         });
     }
+
+    const handleResetApp = () => {
+        const resultado = confirm("¿Deseas reiniciar presupuesto y gastos?")
+
+        if(resultado){
+            setGastos([])
+            setPresupuesto(0)
+            setEsValidoPresupuesto(false)
+        }
+    }
     
 
   return (
@@ -38,9 +54,9 @@ const ControlPresupuesto = ({gastos, presupuesto}) => {
         <div>
             <CircularProgressbar
                 styles={buildStyles({
-                    pathColor: '#3B82F6',
+                    pathColor: porcentaje >100 ? '#DC2626' : '#3B82F6',
                     trailColor: '#D6D6D6',
-                    textColor:'#3B82F6'
+                    textColor:porcentaje >100 ? '#DC2626' : '#3B82F6',
                 })}
                 value={porcentaje}
                 text={`${porcentaje}% Gastado`}
@@ -48,11 +64,19 @@ const ControlPresupuesto = ({gastos, presupuesto}) => {
         </div>
 
         <div className='contenido-presupuesto'>
+            <button 
+                className='reset-app'
+                type='button'
+                onClick={handleResetApp}
+            >
+                Resetear App
+            </button>
+
             <p>
                 <span>Presupuesto: </span>{formatearCantidad(presupuesto)}
             </p>
 
-            <p>
+            <p className={`${disponible <0 ? "negativo" : ""}`}>
                 <span>Disponible: </span>{formatearCantidad(disponible)}
             </p>
 
@@ -65,5 +89,4 @@ const ControlPresupuesto = ({gastos, presupuesto}) => {
     </div>
   )
 }
-
 export default ControlPresupuesto

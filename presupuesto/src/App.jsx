@@ -111,6 +111,7 @@ function App() {
       <Header
 
         gastos = {gastos}
+        setGastos = {setGastos}
         presupuesto = {presupuesto}
         setPresupuesto = {setPresupuesto}
         esValidoPresupuesto = {esValidoPresupuesto}
@@ -162,5 +163,4 @@ function App() {
     
   )
 }
-
 export default App
